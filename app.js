@@ -90,50 +90,10 @@
     });
   }
 
-  /* ---------- Register ---------- */
-  function initRegister() {
-    var form = document.getElementById('registerForm');
-    if (!form) return;
-    form.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var err = document.getElementById('formError');
-      err.classList.remove('show');
-      var name = document.getElementById('name').value.trim();
-      var email = document.getElementById('email').value.trim().toLowerCase();
-      var pass = document.getElementById('password').value;
-      var role = form.querySelector('input[name="role"]:checked').value;
+  /* ---------- Demo login (no credential entry in this prototype) ---------- */
+  function initRegister() { /* registration disabled in the demo */ }
 
-      if (name.length < 3) return showError(err, 'اكتب اسمك الكامل.');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError(err, 'اكتب بريد إلكتروني صحيح.');
-      if (pass.length < 6) return showError(err, 'كلمة المرور لازم تكون ٦ حروف على الأقل.');
-
-      var users = getUsers();
-      if (users.some(function (u) { return u.email === email; })) {
-        return showError(err, 'البريد ده مسجّل قبل كده، جرّب تسجيل الدخول.');
-      }
-      var user = { name: name, email: email, password: pass, role: role };
-      users.push(user);
-      saveUsers(users);
-      setSession({ email: email });
-      window.location.href = 'dashboard.html';
-    });
-  }
-
-  /* ---------- Login ---------- */
   function initLogin() {
-    var form = document.getElementById('loginForm');
-    if (!form) return;
-    form.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var err = document.getElementById('formError');
-      err.classList.remove('show');
-      var email = document.getElementById('email').value.trim().toLowerCase();
-      var pass = document.getElementById('password').value;
-      var user = getUsers().find(function (u) { return u.email === email && u.password === pass; });
-      if (!user) return showError(err, 'البيانات غير صحيحة، تأكد من البريد وكلمة المرور.');
-      setSession({ email: email });
-      window.location.href = 'dashboard.html';
-    });
     document.querySelectorAll('[data-demo]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var u = getUsers().find(function (x) { return x.role === btn.dataset.demo; });
