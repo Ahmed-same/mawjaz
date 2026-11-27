@@ -63,24 +63,7 @@
         meta.textContent = (names[m.owner] || '') + ' · ' + new Date(m.created_at).toLocaleDateString('ar-EG');
         var p = document.createElement('p'); p.textContent = m.notes || '(من غير ملاحظات)';
         card.appendChild(h); card.appendChild(meta); card.appendChild(p);
-        if (m.summary) {
-          var sm = document.createElement('p'); sm.className = 'summary';
-          sm.style.cssText = 'background:#eef6ff;padding:10px;border-radius:8px';
-          sm.textContent = m.summary; card.appendChild(sm);
-        }
         if (m.owner === me.id) {
-          var sb2 = document.createElement('button');
-          sb2.className = 'btn small'; sb2.textContent = m.summary ? 'لخّص تاني' : 'لخّص';
-          sb2.addEventListener('click', function () {
-            sb2.disabled = true; sb2.textContent = 'جارٍ التلخيص...';
-            sb.functions.invoke('summarize', { body: { meeting_id: m.id } }).then(function (r) {
-              if (r.error || !r.data || r.data.error) {
-                showError((r.data && r.data.error) || 'تعذر التلخيص، جرّب تاني.');
-                sb2.disabled = false; sb2.textContent = 'لخّص';
-              } else { load(); }
-            });
-          });
-          card.appendChild(sb2);
           var del = document.createElement('button');
           del.className = 'btn ghost small'; del.textContent = 'حذف';
           del.addEventListener('click', function () {
@@ -93,7 +76,7 @@
     }
     function load() {
       Promise.all([
-        sb.from('meetings').select('id,owner,title,notes,summary,created_at').order('created_at', { ascending: false }),
+        sb.from('meetings').select('id,owner,title,notes,created_at').order('created_at', { ascending: false }),
         sb.from('profiles').select('id,name')
       ]).then(function (r) {
         var names = {};
