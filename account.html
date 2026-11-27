@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حسابي — موجز</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div style="background:#fff7e0;color:#6b4e00;text-align:center;padding:8px 12px;font-size:14px;border-bottom:1px solid #f0dca0">نموذج تجريبي (prototype): الحسابات والاجتماعات تُحفظ فعلا في قاعدة بيانات، لكن التلخيص الآلي غير مفعّل والملخصات والأرقام المعروضة عينات.</div>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html"><span class="dot">م</span> موجز</a>
+    <nav class="nav">
+      <button class="btn ghost small" id="logoutBtn">تسجيل الخروج</button>
+    </nav>
+  </div>
+</header>
+
+<section class="dash-header">
+  <div class="container">
+    <div>
+      <h1 id="welcomeTitle">أهلاً</h1>
+      <p style="color:var(--muted)" id="welcomeSub"></p>
+    </div>
+  </div>
+</section>
+
+<main class="container" style="padding-bottom:60px">
+  <div class="auth-card" style="max-width:640px;margin:0 auto 24px">
+    <h1 style="font-size:20px">اجتماع جديد</h1>
+    <p class="hint">اكتب عنوان الاجتماع وملاحظاتك. بتتحفظ في حسابك. مفيش تلخيص آلي لسه.</p>
+    <div class="form-error" id="formError"></div>
+    <form id="meetingForm" novalidate>
+      <div class="field"><label for="mtitle">العنوان</label><input type="text" id="mtitle" maxlength="120" required></div>
+      <div class="field"><label for="mnotes">الملاحظات</label><textarea id="mnotes" rows="4" maxlength="5000" style="width:100%;font-family:inherit;padding:10px;border:1px solid #ddd;border-radius:10px"></textarea></div>
+      <button class="btn" type="submit" style="width:100%">حفظ الاجتماع</button>
+    </form>
+  </div>
+  <h2 id="meetingsTitle" style="margin:0 0 12px">اجتماعاتك</h2>
+  <div id="meetingsList"></div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supa.js"></script>
+</body>
+</html>
